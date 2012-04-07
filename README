@@ -1,0 +1,27 @@
+============
+Sit 'N' Push
+============
+
+Small mobile app that help noob Texas Hold'em players in the late stages of tournatemnts.
+
+1. Enter the number of big blinds(BB) that you still have in your stack.
+2. Enter position and your two hole cards.
+
+Sit 'N' Push will suggest whether you should PUSH (go all-in) or FOLD in this situation. 
+It will also display Sklansky-Chubukov eV value of your hand and of minimal hand required for push in that situation. 
+A quotient will be shown that says how many times is your hand better than minimum hand. 
+
+Based on Collin Moshman's book "Sit 'n Go Strategy", Appendix B, Pushing Tables and Sklansky-Chubukov hand rankings. 
+Works best on iPhone and Android browsers.
+
+
+Poker theory:
+-------------
+1. If you have raising hand and less than 10BB chips, you should PUSH (go all in) instead of raise.
+2. Always (try to) have more than 5BB chips (to win you have to be prepared to die) - this means that if you go bellow 5BB it's profitable to PUSH with almost ATC (any two cards)
+3. POSITION is important. You have more chances to win if there are LESS playes to act after you.
+4. You should have better hands to CALL than to PUSH (be first).
+
+
+This app tries to identify these push situations. It's not completely mathematically correct and, of course, lots of your decisions depend on your oppontents. However, if you stick to it's suggestions you'll win homegame easylly.
+http://forumserver.twoplustwo.com/45/software/sitnpush-push-fold-ranges-android-iphone-919670/

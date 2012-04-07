@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="description" content="SitNPush - Help with late stage of tournament">
+  <meta name="keywords" content="poker, tournament, sit n go, mtt, all in, push fold">
+  <title>SitNPush</title>
+  <style type="text/css" media="screen">@import "jqtouch/jqtouch.min.css";</style>
+  <style type="text/css" media="screen">@import "themes/apple/theme.min.css";</style>
+  <script src="jqtouch/jquery.1.3.2.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="js/map.js" type="application/x-javascript" charset="utf-8"></script>
+  <script src="js/push.js" type="application/x-javascript" charset="utf-8"></script>
+  
+  <script type="text/javascript" charset="utf-8">
+     var jQT = new $.jQTouch({
+           icon: 'jqtouch.png',
+           addGlossToIcon: false,
+           startupScreen: 'jqt_startup.png',
+           statusBar: 'black',
+           preloadImages: [
+               'themes/apple/img/back_button.png',
+               'themes/apple/img/back_button_clicked.png',
+               'themes/apple/img/button_clicked.png',
+               'themes/apple/img/grayButton.png',
+               'themes/apple/img/whiteButton.png',
+               'themes/apple/img/loading.gif'
+               ]
+       });
+    
+    function push()
+    { 
+		var bb = $("#bb").val()*1;
+    	var first =  $("#first").val();
+    	var second =  $("#second").val();
+    	if (compareCards(first, second) < 0)
+    	{
+			var temp = first;
+    		first = second;
+    		second = temp;
+    	}
+    	var suited = $("#suited").attr('checked') && first != second;
+    	var position = $("#position").val() * 1;
+    	var hand = "" + first + second;
+		if (suited)
+			hand += "s";
+		$("#info").html(evaluateHand(hand, bb, position));
+    }
+	
+	$(document).ready(function() {
+		$('select, #suited').change(function() {
+			push()
+		});
+		push();
+	});
+	
+  </script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19666509-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+<body>
+<div>
+<div class="toolbar">
+    <h1>SitNPush</h1>
+	<a class="button slideup" id="infoButton" href="#about">About</a>
+</div>
+<form>
+    <ul class="edit rounded">
+        <li>
+            <select id="bb">
+              <optgroup label="Number of Big Blinds">
+                <option value ="0">3BB</option>
+                <option value ="1">5BB</option>
+                <option value ="2">7BB</option>
+                <option value ="3">10BB</option>
+              </optgroup>
+             </select>
+        </li>
+        <li>
+            <select id="position">
+              <optgroup label="Position">
+                <option value ="0">Small Blind</option>
+                <option value ="1">Button</option>
+                <option value ="2">Cutoff</option>
+                <option value ="3">Against many players</option>
+              </optgroup>
+            </select>
+        </li>
+      </ul>
+       <ul class="rounded individual">
+        <li>
+            <select id="first">
+              <optgroup label="First Card">
+                <option value ="A">A</option>
+                <option value ="K">K</option>
+                <option value ="Q">Q</option>
+                <option value ="J">J</option>
+                <option value ="T">10</option>
+                <option value ="9">9</option>
+                <option value ="8">8</option>
+                <option value ="7">7</option>
+                <option value ="6">6</option>
+                <option value ="5">5</option>
+                <option value ="4">4</option>
+                <option value ="3">3</option>
+                <option value ="2">2</option>
+              </optgroup>
+            </select>
+          </li>
+          <li>
+            <select id="second">
+              <optgroup label="Second Card">
+                <option value ="A">A</option>
+                <option value ="K">K</option>
+                <option value ="Q">Q</option>
+                <option value ="J">J</option>
+                <option value ="T">10</option>
+                <option value ="9">9</option>
+                <option value ="8">8</option>
+                <option value ="7">7</option>
+                <option value ="6">6</option>
+                <option value ="5">5</option>
+                <option value ="4">4</option>
+                <option value ="3">3</option>
+                <option value ="2">2</option>
+              </optgroup>
+            </select>
+        </li>
+      </ul>
+      <ul class="edit rounded">
+        <li>Suited: <span class="toggle"><input type="checkbox" name="suited" id="suited" class="target"/></span></li>
+    </ul>
+	<div class="info" style="font-weight: normal;" id="info">
+    </div>
+</form>
+</div>
+<div id="about" class="selectable">
+		<p style="text-align:center"><strong>SitNPush</strong><br />Version 0.1 alpha<br />
+			<br/>
+			<em>Help with late stage of poker tournament</em>
+			<br/>
+			</p>
+		<br/>
+		<p style="margin: 10px">
+			1. Enter the number of big blinds(BB) that you still have in your stack.<br/>
+			2. Enter position and your two hole cards.<br/>
+		<br />
+		SitNPush will suggest whether you should PUSH (go all-in) or FOLD in this situation.
+		<br/>
+		It will also display Sklansky-Chubukov eV value of your hand and of minimal hand required for push in that situation. 
+		<br/>
+		A quotient will be shown that says how many times is your hand better than minimum hand.
+		<br />
+		<br />
+		<small>
+		Based on Collin Moshman's book "Sit 'n Go Strategy", Appendix B, Pushing Tables and <a href="http://www2.decf.berkeley.edu/~chubukov/rankings.html" target="_blank">Sklansky-Chubukov hand rankings.</a>
+		<br/>
+		Works best on iPhone and Android browsers.
+		</small>
+		</p>
+		<p><br /><br />			
+		
+		<ul class="individual">
+			<li><a href="#" class="whiteButton goback">Close</a></li>
+			<li><a href="mailto:sitnpush@kalnik.org" class="whiteButton" target="_blank">Email</a></li>
+        </ul>
+</div>
+
+</body>
